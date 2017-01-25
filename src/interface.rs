@@ -61,6 +61,10 @@ impl WebSocket {
         self.events.recv().unwrap()
     }
 
+    pub fn try_next(&mut self) -> Result<(Token,WebSocketEvent),mpsc::TryRecvError> {
+        self.events.try_recv()
+    }
+
     pub fn get_connected(&mut self) -> Result<Vec<Token>, mpsc::RecvError> {
         let (tx, rx) = mpsc::channel();
         self.send_internal(WebSocketInternalMessage::GetPeers(tx));
