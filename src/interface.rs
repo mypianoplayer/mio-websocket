@@ -74,6 +74,12 @@ impl WebSocket {
     pub fn send(&mut self, msg: (Token,WebSocketEvent)) {
         self.send_internal(WebSocketInternalMessage::SendMessage(msg));
     }
+    pub fn send_all(&mut self, msg: String) {
+        for peer in self.get_connected().unwrap() {
+            let evt = WebSocketEvent::TextMessage(msg.clone());
+            self.send((peer, evt));
+        }
+    }
 
     fn send_internal(&mut self, msg: WebSocketInternalMessage) -> Result<(), NotifyError<WebSocketInternalMessage>> {
         let mut val = msg;
