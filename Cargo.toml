@@ -12,6 +12,7 @@ byteorder = "0.3"
 log = "0.3"
 websocket-essentials = { git = "https://github.com/nbaksalyar/rust-websocket-essentials" }
 mio = "0.5.0"
+slab = "0.3.0"
 
 [dev-dependencies]
 env_logger = "0.3"

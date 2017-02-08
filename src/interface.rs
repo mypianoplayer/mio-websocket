@@ -1,4 +1,5 @@
 /// High-level WebSocket library interface
+extern crate slab;
 
 use std::net::SocketAddr;
 use std::thread;
@@ -73,6 +74,10 @@ impl WebSocket {
 
     pub fn send(&mut self, msg: (Token,WebSocketEvent)) {
         self.send_internal(WebSocketInternalMessage::SendMessage(msg));
+    }
+    pub fn send_peer(&mut self, tok:usize, msg:String) {
+        let evt = WebSocketEvent::TextMessage(msg.clone());
+        self.send((Token(tok),evt));
     }
     pub fn send_all(&mut self, msg: String) {
         for peer in self.get_connected().unwrap() {
