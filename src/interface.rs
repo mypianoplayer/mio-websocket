@@ -76,12 +76,12 @@ impl WebSocket {
         self.send_internal(WebSocketInternalMessage::SendMessage(msg));
     }
     pub fn send_peer(&mut self, tok:usize, msg:String) {
-        println!("sending {}", msg);
+        println!("sending {} to {}", msg, tok);
         let evt = WebSocketEvent::TextMessage(msg.clone());
         self.send((Token(tok),evt));
     }
     pub fn send_all(&mut self, msg: String) {
-        println!("sending {}", msg);
+        println!("sending {} to all", msg);
         for peer in self.get_connected().unwrap() {
             let evt = WebSocketEvent::TextMessage(msg.clone());
             self.send((peer, evt));
